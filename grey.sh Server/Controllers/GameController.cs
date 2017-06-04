@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
+
 using grey.sh_Server.Components;
-using grey.sh_Server.Contexts;
-using Microsoft.EntityFrameworkCore;
 
 namespace grey.sh_Server.Controllers
 {
@@ -14,6 +9,11 @@ namespace grey.sh_Server.Controllers
   public class GameController : Controller
   {
     private Game game;
+
+    public GameController(Game game)
+    {
+      this.game = game;
+    }
 
     [HttpGet("Connect")]
     public async Task<IActionResult> Connect()

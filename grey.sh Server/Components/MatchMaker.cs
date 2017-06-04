@@ -75,7 +75,7 @@ namespace grey.sh_Server.Components
       return player.BattleToken;
     }
 
-    public Task<BattleHub> GetBattleHub(string battleToken)
+    public Task<BattleHub> GetBattleHubAsync(string battleToken)
     {
       return Task.Run(() =>
       {
@@ -88,9 +88,9 @@ namespace grey.sh_Server.Components
       });
     }
 
-    public async Task<BattlePlayer> GetBattlePlayer(string battleToken, string token)
+    public async Task<BattlePlayer> GetBattlePlayerAsync(string battleToken, string token)
     {
-      var hub = await GetBattleHub(battleToken);
+      var hub = await GetBattleHubAsync(battleToken);
 
       if (hub == null)
       {
@@ -112,7 +112,7 @@ namespace grey.sh_Server.Components
 
     public async Task<BattlePlayer> GetOtherBattlePlayerAsync(string battleToken, string token)
     {
-      var hub = await GetBattleHub(battleToken);
+      var hub = await GetBattleHubAsync(battleToken);
 
       if (hub == null)
       {

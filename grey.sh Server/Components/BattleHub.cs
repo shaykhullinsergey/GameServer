@@ -13,13 +13,12 @@ namespace grey.sh_Server.Components
 
     public bool TurnEnded => Player1.TurnEnded && Player2.TurnEnded;
 
-    public async Task WaitForEndTurn()
+    public async Task WaitForEndTurnAsync()
     {
       while (TurnEnded)
       {
         await Task.Delay(1000);
       }
-
     }
   }
 }

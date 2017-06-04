@@ -8,6 +8,12 @@ namespace grey.sh_Server.Components
     private Battle battle;
     private GameRepository gamePlayers;
 
+    public Game(Battle battle, GameRepository gamePlayers)
+    {
+      this.battle = battle;
+      this.gamePlayers = gamePlayers;
+    }
+
     public JsonResult Connect()
     {
       return new JsonResult(new { Success = "ok" });

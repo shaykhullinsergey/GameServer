@@ -11,6 +11,11 @@ namespace grey.sh_Server.Components
   {
     private PlayerContext context;
 
+    public PlayerRepository(PlayerContext context)
+    {
+      this.context = context;
+    }
+
     public async Task<InfoPlayer> LoginPlayerAsync(string login)
     {
       var player = await context.Players.SingleOrDefaultAsync(x => x.Login == login);

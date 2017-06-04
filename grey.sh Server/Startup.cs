@@ -14,7 +14,11 @@ namespace grey.sh_Server
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc();
+      services.AddSingleton<Game>();
       services.AddSingleton<Battle>();
+      services.AddSingleton<Matchmaker>();
+      services.AddSingleton<GameRepository>();
+      services.AddSingleton<PlayerRepository>();
       services.AddDbContext<PlayerContext>();
     }
 

@@ -1,9 +1,6 @@
-﻿using grey.sh_Server.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace grey.sh_Server.Components
 {
@@ -11,10 +8,16 @@ namespace grey.sh_Server.Components
   {
     public Matchmaker Matchmaker { get; set; }
 
+    public Battle(Matchmaker matchmaker)
+    {
+      Matchmaker = matchmaker;
+      Matchmaker.Start();
+    }
+
     public async Task<JsonResult> EndTurnAsync(string battleToken, string token, int p1X, int p1Y, int p2X, int p2Y, int p3X, int p3Y)
     {
-      var hub = await Matchmaker.GetBattleHub(battleToken);
-      var player = await Matchmaker.GetBattlePlayer(battleToken, token);
+      var hub = await Matchmaker.GetBattleHubAsync(battleToken);
+      var player = await Matchmaker.GetBattlePlayerAsync(battleToken, token);
 
       if (player == null)
       {
@@ -34,7 +37,7 @@ namespace grey.sh_Server.Components
 
       player.TurnEnded = true;
 
-      await hub.WaitForEndTurn();
+      await hub.WaitForEndTurnAsync();
 
       var otherPlayer = await Matchmaker.GetOtherBattlePlayerAsync(battleToken, token);
 

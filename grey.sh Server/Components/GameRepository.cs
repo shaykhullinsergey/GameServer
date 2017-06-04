@@ -14,6 +14,11 @@ namespace grey.sh_Server.Components
     private PlayerRepository players;
     private ConcurrentDictionary<string, GamePlayer> online = new ConcurrentDictionary<string, GamePlayer>();
 
+    public GameRepository(PlayerRepository players)
+    {
+      this.players = players;
+    }
+
     public async Task<JsonResult> LoginPlayerAsync(string login)
     {
       var playerData = await players.LoginPlayerAsync(login);
