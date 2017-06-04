@@ -12,6 +12,7 @@ namespace grey.sh_Server.Components
 
     public async Task<JsonResult> EndTurnAsync(string battleToken, string token, int p1X, int p1Y, int p2X, int p2Y, int p3X, int p3Y)
     {
+      var hub = await Matchmaker.GetBattleHub(battleToken);
       var player = await Matchmaker.GetBattlePlayer(battleToken, token);
 
       if (player == null)
