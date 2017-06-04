@@ -33,7 +33,12 @@ namespace grey.sh_Server.Components
       player.Positions[2].Y = p3Y;
 
       player.TurnEnded = true;
-      var positions = await hub.WaitForEndTurn();
+
+      await hub.WaitForEndTurn();
+
+      var otherPlayer = await Matchmaker.GetOtherBattlePlayerAsync(battleToken, token);
+
+      var positions = player.Positions.Concat(otherPlayer.Positions);
 
       return new JsonResult(new { Success = "ok", Positions = positions });
     }
