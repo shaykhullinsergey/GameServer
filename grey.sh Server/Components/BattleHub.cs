@@ -1,4 +1,7 @@
-﻿using System;
+﻿using grey.sh_Server.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace grey.sh_Server.Components
@@ -10,12 +13,14 @@ namespace grey.sh_Server.Components
 
     public bool TurnEnded => Player1.TurnEnded && Player2.TurnEnded;
 
-    public async Task WaitForEndTurn()
+    public async Task<IEnumerable<Position>> WaitForEndTurn()
     {
       while (TurnEnded)
       {
         await Task.Delay(1000);
       }
+
+      return Player1.Positions.Concat(Player2.Positions);
     }
   }
 }

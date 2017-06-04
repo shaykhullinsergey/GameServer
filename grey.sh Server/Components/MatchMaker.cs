@@ -59,8 +59,8 @@ namespace grey.sh_Server.Components
     public async Task<string> AddPlayerAsync(GamePlayer player)
     {
       player.SearchingForBattle = true;
-
       playerQueue.Add(player);
+
       while (player.BattleToken == null && player.SearchingForBattle)
       {
         await Task.Delay(1000);

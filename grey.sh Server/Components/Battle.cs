@@ -33,10 +33,7 @@ namespace grey.sh_Server.Components
       player.Positions[2].Y = p3Y;
 
       player.TurnEnded = true;
-
-      await hub.WaitForEndTurn();
-
-      var positions = hub.Player1.Positions.Concat(hub.Player2.Positions);
+      var positions = await hub.WaitForEndTurn();
 
       return new JsonResult(new { Success = "ok", Positions = positions });
     }
