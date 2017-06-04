@@ -1,9 +1,5 @@
-﻿using grey.sh_Server.Contexts;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace grey.sh_Server.Components
 {
@@ -41,7 +37,7 @@ namespace grey.sh_Server.Components
         return new JsonResult(new { Success = "bad token" });
       }
 
-      var battleToken = await battle.Matchmaker.AddAsync(gamePlayer);
+      var battleToken = await battle.Matchmaker.AddPlayerAsync(gamePlayer);
 
       return new JsonResult(new { Success = "ok", BattleToken = battleToken });
     }
@@ -72,5 +68,9 @@ namespace grey.sh_Server.Components
       return new JsonResult(new { Success = "ok", Nickname = otherBattlePlayer.GamePlayer.Player.Nickname });
     }
     
+    public async Task<JsonResult> EndTurnAsync(string battleToken, string token, int p1X, int p1Y, int p2X, int p2Y, int p3X, int p3Y)
+    {
+      return await battle.EndTurnAsync(battleToken, token, p1X, p1Y, p2X, p2Y, p3X, p3Y);
+    }
   }
 }

@@ -56,7 +56,7 @@ namespace grey.sh_Server.Components
       });
     }
 
-    public async Task<string> AddAsync(GamePlayer player)
+    public async Task<string> AddPlayerAsync(GamePlayer player)
     {
       player.SearchingForBattle = true;
 

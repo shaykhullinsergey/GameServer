@@ -39,38 +39,32 @@ namespace grey.sh_Server.Controllers
       return await game.MenuAsync(token);
     }
 
+    //TODO: Battle/Search
     [HttpGet("SearchBattle/{token}")]
     public async Task<IActionResult> SearchBattle(string token)
     {
       return await game.SearchBattleAsync(token);
     }
 
+    //TODO: Battle/Cancel
     [HttpGet("CancelBattle/{token}")]
     public async Task<IActionResult> CancelBattle(string token)
     {
       return await game.CancelBattleAsync(token);
     }
 
+    //TODO: Battle/Prepare
     [HttpGet("PrepareBattle/{battleToken}/{token}")]
     public async Task<IActionResult> PrepareBattle(string battleToken, string token)
     {
       return await game.PrepareBattleAsync(battleToken, token);
     }
 
+    //TODO: Battle/EndTurn
     [HttpGet("Battle/{battleToken}/{token}/{p1X}/{p1Y}/{p2X}/{p2Y}/{p3X}/{p3Y}")]
-    public async Task<IActionResult> Battle(string battleToken, string token, int p1X, int p1Y, int p2X, int p2Y, int p3X, int p3Y)
+    public async Task<IActionResult> EndTurn(string battleToken, string token, int p1X, int p1Y, int p2X, int p2Y, int p3X, int p3Y)
     {
-      var hub = battle.ActiveHubs[battleToken];
-      var playerData = await hub.WaitForResultAsync(token, p1X, p1Y, p2X, p2Y, p3X, p3Y);
-
-      if (playerData == null)
-      {
-        return Json(new { Success = "bad token" });
-      }
-
-      //TODO: Conditions
-
-      return Json(new { Success = "ok", PlayerData = playerData });
+      return await game.EndTurnAsync(battleToken, token, p1X, p1Y, p2X, p2Y, p3X, p3Y);
     }
   }
 }
