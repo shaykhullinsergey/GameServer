@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using grey.sh_Server.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,25 @@ namespace grey.sh_Server.Components
       {
         return new JsonResult(new { Success = "bad token" });
       }
+
       //TODO: Conditions
 
-      player.
+      player.Positions[0].X = p1X;
+      player.Positions[0].Y = p1Y;
+
+      player.Positions[1].X = p1X;
+      player.Positions[1].Y = p2Y;
+
+      player.Positions[2].X = p3X;
+      player.Positions[2].Y = p3Y;
+
       player.TurnEnded = true;
 
-      return new JsonResult(new { Success = "ok", PlayerData = player });
+      await hub.WaitForEndTurn();
+
+      var positions = hub.Player1.Positions.Concat(hub.Player2.Positions);
+
+      return new JsonResult(new { Success = "ok", Positions = positions });
     }
   }
 }
