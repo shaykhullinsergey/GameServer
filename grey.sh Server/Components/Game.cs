@@ -17,22 +17,22 @@ namespace grey.sh_Server.Components
       return new JsonResult(new { Success = "ok" });
     }
 
-    public async Task<JsonResult> Login(string token)
+    public async Task<JsonResult> LoginAsync(string token)
     {
       return await gamePlayers.LoginPlayerAsync(token);
     }
 
-    public async Task<JsonResult> Register(string nickname)
+    public async Task<JsonResult> RegisterAsync(string nickname)
     {
       return await gamePlayers.RegisterPlayerAsync(nickname);
     }
 
-    public async Task<JsonResult> Menu(string token)
+    public async Task<JsonResult> MenuAsync(string token)
     {
       return await gamePlayers.PlayerMenuAsync(token);
     }
 
-    public async Task<JsonResult> SearchBattle(string token)
+    public async Task<JsonResult> SearchBattleAsync(string token)
     {
       var gamePlayer = await gamePlayers.GetPlayerAsync(token);
 
@@ -46,7 +46,7 @@ namespace grey.sh_Server.Components
       return new JsonResult(new { Success = "ok", BattleToken = battleToken });
     }
 
-    public async Task<JsonResult> CancelBattle(string token)
+    public async Task<JsonResult> CancelBattleAsync(string token)
     {
       var gamePlayer = await gamePlayers.GetPlayerAsync(token);
 
@@ -60,9 +60,9 @@ namespace grey.sh_Server.Components
       return new JsonResult(new { Success = "ok" });
     }
 
-    public async Task<JsonResult> PrepareBattle(string battleToken, string token)
+    public async Task<JsonResult> PrepareBattleAsync(string battleToken, string token)
     {
-      var otherBattlePlayer = await battle.Matchmaker.GetOtherBattlePlayer(battleToken, token);
+      var otherBattlePlayer = await battle.Matchmaker.GetOtherBattlePlayerAsync(battleToken, token);
 
       if (otherBattlePlayer == null)
       {

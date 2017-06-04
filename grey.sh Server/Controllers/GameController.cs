@@ -24,37 +24,37 @@ namespace grey.sh_Server.Controllers
     [HttpGet("Login/{login}")]
     public async Task<IActionResult> Login(string login)
     {
-      return await game.Login(login);
+      return await game.LoginAsync(login);
     }
 
     [HttpGet("Register/{nickname}")]
     public async Task<IActionResult> Register(string nickname)
     {
-      return await game.Register(nickname);
+      return await game.RegisterAsync(nickname);
     }
 
     [HttpGet("Menu/{token}")]
     public async Task<IActionResult> Menu(string token)
     {
-      return await game.Menu(token);
+      return await game.MenuAsync(token);
     }
 
     [HttpGet("SearchBattle/{token}")]
     public async Task<IActionResult> SearchBattle(string token)
     {
-      return await game.SearchBattle(token);
+      return await game.SearchBattleAsync(token);
     }
 
     [HttpGet("CancelBattle/{token}")]
     public async Task<IActionResult> CancelBattle(string token)
     {
-      return await game.CancelBattle(token);
+      return await game.CancelBattleAsync(token);
     }
 
     [HttpGet("PrepareBattle/{battleToken}/{token}")]
     public async Task<IActionResult> PrepareBattle(string battleToken, string token)
     {
-      return await game.PrepareBattle(battleToken, token);
+      return await game.PrepareBattleAsync(battleToken, token);
     }
 
     [HttpGet("Battle/{battleToken}/{token}/{p1X}/{p1Y}/{p2X}/{p2Y}/{p3X}/{p3Y}")]

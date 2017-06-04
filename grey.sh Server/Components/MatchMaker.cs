@@ -110,7 +110,7 @@ namespace grey.sh_Server.Components
       return null;
     }
 
-    public async Task<BattlePlayer> GetOtherBattlePlayer(string battleToken, string token)
+    public async Task<BattlePlayer> GetOtherBattlePlayerAsync(string battleToken, string token)
     {
       var hub = await GetBattleHub(battleToken);
 
