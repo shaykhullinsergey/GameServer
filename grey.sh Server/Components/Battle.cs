@@ -21,6 +21,9 @@ namespace grey.sh_Server.Components
       }
       //TODO: Conditions
 
+      player.
+      player.TurnEnded = true;
+
       return new JsonResult(new { Success = "ok", PlayerData = player });
     }
   }
