@@ -45,7 +45,7 @@ namespace grey.sh_Server.Components
       });
     }
 
-    public Task<BattlePlayer> GetPtherBattlePlayerAsync(string token)
+    public Task<BattlePlayer> GetOtherBattlePlayerAsync(string token)
     {
       return Task.Run(() =>
       {

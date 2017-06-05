@@ -33,9 +33,7 @@ namespace grey.sh_Server.Components
       //TODO: Conditions
 
       await hub.WaitForEndTurnAsync();
-
-      var otherPlayer = await Matchmaker.GetOtherBattlePlayerAsync(battleToken, token);
-
+      var otherPlayer = await hub.GetOtherBattlePlayerAsync(token);
       var positions = player.Positions.Concat(otherPlayer.Positions);
 
       return new JsonResult(new { Success = "ok", Positions = positions });

@@ -43,7 +43,7 @@ namespace grey.sh_Server.Components
         return new JsonResult(new { Success = "bad token" });
       }
 
-      var battleToken = await battle.Matchmaker.AddPlayerAsync(gamePlayer);
+      var battleToken = await battle.Matchmaker.AddToQueueAsync(gamePlayer);
 
       return new JsonResult(new { Success = "ok", BattleToken = battleToken });
     }
@@ -64,7 +64,8 @@ namespace grey.sh_Server.Components
 
     public async Task<JsonResult> PrepareBattleAsync(string battleToken, string token)
     {
-      var otherBattlePlayer = await battle.Matchmaker.GetOtherBattlePlayerAsync(battleToken, token);
+      var hub = await battle.Matchmaker.GetBattleHubAsync(battleToken);
+      var otherBattlePlayer = await hub.GetBattlePlayerAsync(token);
 
       if (otherBattlePlayer == null)
       {

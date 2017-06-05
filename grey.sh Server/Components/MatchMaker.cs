@@ -54,7 +54,7 @@ namespace grey.sh_Server.Components
       });
     }
 
-    public async Task<string> AddPlayerAsync(GamePlayer player)
+    public async Task<string> AddToQueueAsync(GamePlayer player)
     {
       player.SearchingForBattle = true;
       playerQueue.Add(player);
@@ -86,31 +86,31 @@ namespace grey.sh_Server.Components
       });
     }
 
-    public async Task<BattlePlayer> GetBattlePlayerAsync(string battleToken, string token)
-    {
-      var hub = await GetBattleHubAsync(battleToken);
+    //public async Task<BattlePlayer> GetBattlePlayerAsync(string battleToken, string token)
+    //{
+    //  var hub = await GetBattleHubAsync(battleToken);
 
-      if (hub == null)
-      {
-        return null;
-      }
+    //  if (hub == null)
+    //  {
+    //    return null;
+    //  }
 
-      var player = await hub.GetBattlePlayerAsync(token);
-      return player;
-    }
+    //  var player = await hub.GetBattlePlayerAsync(token);
+    //  return player;
+    //}
 
-    public async Task<BattlePlayer> GetOtherBattlePlayerAsync(string battleToken, string token)
-    {
-      var hub = await GetBattleHubAsync(battleToken);
+    //public async Task<BattlePlayer> GetOtherBattlePlayerAsync(string battleToken, string token)
+    //{
+    //  var hub = await GetBattleHubAsync(battleToken);
 
-      if (hub == null)
-      {
-        return null;
-      }
+    //  if (hub == null)
+    //  {
+    //    return null;
+    //  }
 
-      var player = await hub.GetPtherBattlePlayerAsync(token);
-      return player;
-    }
+    //  var player = await hub.GetOtherBattlePlayerAsync(token);
+    //  return player;
+    //}
 
     public void Stop()
     {
