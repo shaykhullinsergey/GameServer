@@ -17,25 +17,20 @@ namespace grey.sh_Server.Components
     public async Task<JsonResult> EndTurnAsync(string battleToken, string token, int p1X, int p1Y, int p2X, int p2Y, int p3X, int p3Y)
     {
       var hub = await Matchmaker.GetBattleHubAsync(battleToken);
-      var player = await Matchmaker.GetBattlePlayerAsync(battleToken, token);
+      if(hub == null)
+      {
+        return new JsonResult(new { Success = "bad battleToken" });
+      }
 
+      var player = await hub.GetBattlePlayerAsync(token);
       if (player == null)
       {
         return new JsonResult(new { Success = "bad token" });
       }
 
+      player.EndTurn(p1X, p1Y, p2X, p2Y, p3X, p3Y);
+
       //TODO: Conditions
-
-      player.Positions[0].X = p1X;
-      player.Positions[0].Y = p1Y;
-
-      player.Positions[1].X = p1X;
-      player.Positions[1].Y = p2Y;
-
-      player.Positions[2].X = p3X;
-      player.Positions[2].Y = p3Y;
-
-      player.TurnEnded = true;
 
       await hub.WaitForEndTurnAsync();
 

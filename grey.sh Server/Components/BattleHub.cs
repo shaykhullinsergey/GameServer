@@ -8,17 +8,59 @@ namespace grey.sh_Server.Components
 {
   public class BattleHub
   {
-    public BattlePlayer Player1 { get; set; }
-    public BattlePlayer Player2 { get; set; }
+    private BattlePlayer battlePlayer1;
+    private BattlePlayer battlePlayer2;
 
-    public bool TurnEnded => Player1.TurnEnded && Player2.TurnEnded;
+    public BattleHub(BattlePlayer battlePlayer1, BattlePlayer battlePlayer2)
+    {
+      this.battlePlayer1 = battlePlayer1;
+      this.battlePlayer2 = battlePlayer2;
+    }
+
+    private bool TurnEnded => battlePlayer1.TurnEnded && battlePlayer2.TurnEnded;
 
     public async Task WaitForEndTurnAsync()
     {
-      while (TurnEnded)
+      while (!TurnEnded)
       {
-        await Task.Delay(1000);
+        await Task.Delay(1000).ConfigureAwait(false);
       }
+    }
+
+    public Task<BattlePlayer> GetBattlePlayerAsync(string token)
+    {
+      return Task.Run(() =>
+      {
+        if (battlePlayer1.GamePlayer.Token == token)
+        {
+          return battlePlayer1;
+        }
+
+        if (battlePlayer2.GamePlayer.Token == token)
+        {
+          return battlePlayer2;
+        }
+
+        return null;
+      });
+    }
+
+    public Task<BattlePlayer> GetPtherBattlePlayerAsync(string token)
+    {
+      return Task.Run(() =>
+      {
+        if (battlePlayer1.GamePlayer.Token == token)
+        {
+          return battlePlayer2;
+        }
+
+        if (battlePlayer2.GamePlayer.Token == token)
+        {
+          return battlePlayer1;
+        }
+
+        return null;
+      });
     }
   }
 }

@@ -45,11 +45,7 @@ namespace grey.sh_Server.Components
               GamePlayer = player2 //TODO: etc.
             };
 
-            var battleHub = new BattleHub
-            {
-              Player1 = battlePlayer1,
-              Player2 = battlePlayer2
-            };
+            var battleHub = new BattleHub(battlePlayer1, battlePlayer2);
 
             battles.TryAdd(battleToken, battleHub);
           }
@@ -99,17 +95,8 @@ namespace grey.sh_Server.Components
         return null;
       }
 
-      if(hub.Player1.GamePlayer.Token == token)
-      {
-        return hub.Player1;
-      }
-
-      if (hub.Player2.GamePlayer.Token == token)
-      {
-        return hub.Player2;
-      }
-
-      return null;
+      var player = await hub.GetBattlePlayerAsync(token);
+      return player;
     }
 
     public async Task<BattlePlayer> GetOtherBattlePlayerAsync(string battleToken, string token)
@@ -121,17 +108,8 @@ namespace grey.sh_Server.Components
         return null;
       }
 
-      if (hub.Player1.GamePlayer.Token == token)
-      {
-        return hub.Player2;
-      }
-
-      if (hub.Player2.GamePlayer.Token == token)
-      {
-        return hub.Player1;
-      }
-
-      return null;
+      var player = await hub.GetPtherBattlePlayerAsync(token);
+      return player;
     }
 
     public void Stop()
