@@ -31,17 +31,19 @@ namespace grey.sh_Server.Components
             var player2 = playerQueue[index];
             playerQueue.Remove(player2);
 
+            var battleToken = Guid.NewGuid().ToString().Replace("-", "");
+
+            player1.BattleToken = player2.BattleToken = battleToken;
+
             var battlePlayer1 = new BattlePlayer
             {
-              GamePlayer = player1 //TODO: etc.
+              GamePlayer = player1, //TODO: etc.
             };
 
             var battlePlayer2 = new BattlePlayer
             {
               GamePlayer = player2 //TODO: etc.
             };
-
-            var battleToken = Guid.NewGuid().ToString().Replace("-", "");
 
             var battleHub = new BattleHub
             {
